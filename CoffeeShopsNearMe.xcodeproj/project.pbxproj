@@ -23,6 +23,9 @@
 		F718FC4721AFCE3E007ACC63 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC4621AFCE3E007ACC63 /* Request.swift */; };
 		F718FC4A21AFCEEC007ACC63 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC4921AFCEEC007ACC63 /* ServiceManager.swift */; };
 		F718FC4D21AFD035007ACC63 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC4C21AFD035007ACC63 /* ImageCache.swift */; };
+		F718FC5121AFD438007ACC63 /* CoffeeShopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */; };
+		F718FC5221AFD438007ACC63 /* CoffeeShopListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */; };
+		F718FC5521AFD52C007ACC63 /* CoffeeShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,9 @@
 		F718FC4621AFCE3E007ACC63 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		F718FC4921AFCEEC007ACC63 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		F718FC4C21AFD035007ACC63 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopListViewController.swift; sourceTree = "<group>"; };
+		F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoffeeShopListViewController.xib; sourceTree = "<group>"; };
+		F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 				F718FC4821AFCEB2007ACC63 /* Request */,
 				F718FC4B21AFCFE2007ACC63 /* ServiceManager */,
 				F718FC4E21AFD096007ACC63 /* Cache */,
+				F718FC5321AFD449007ACC63 /* ViewControllers */,
 			);
 			path = CoffeeShopsNearMe;
 			sourceTree = "<group>";
@@ -164,6 +171,16 @@
 				F718FC4C21AFD035007ACC63 /* ImageCache.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		F718FC5321AFD449007ACC63 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */,
+				F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */,
+				F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F718FC5221AFD438007ACC63 /* CoffeeShopListViewController.xib in Resources */,
 				F718FC1B21AFC454007ACC63 /* LaunchScreen.storyboard in Resources */,
 				F718FC1821AFC454007ACC63 /* Assets.xcassets in Resources */,
 				F718FC1621AFC451007ACC63 /* Main.storyboard in Resources */,
@@ -271,9 +289,11 @@
 				F718FC4221AFCC20007ACC63 /* NetworkLogger.swift in Sources */,
 				F718FC3A21AFCAF1007ACC63 /* HTTPTask.swift in Sources */,
 				F718FC3521AFC736007ACC63 /* JSONParameterEncoder.swift in Sources */,
+				F718FC5121AFD438007ACC63 /* CoffeeShopListViewController.swift in Sources */,
 				F718FC4421AFCC9F007ACC63 /* RequestEndPoints .swift in Sources */,
 				F718FC3121AFC650007ACC63 /* ParameterEncoding.swift in Sources */,
 				F718FC3321AFC6FA007ACC63 /* URLParameterEncoding.swift in Sources */,
+				F718FC5521AFD52C007ACC63 /* CoffeeShopViewModel.swift in Sources */,
 				F718FC3821AFCAD2007ACC63 /* HTTPMethod.swift in Sources */,
 				F718FC4721AFCE3E007ACC63 /* Request.swift in Sources */,
 				F718FC1121AFC451007ACC63 /* AppDelegate.swift in Sources */,
