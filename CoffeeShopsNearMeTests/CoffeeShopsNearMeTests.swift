@@ -16,7 +16,7 @@ class CoffeeShopsNearMeTests: XCTestCase {
     let clientSecret = "LZAS1ZGSIIF4E4QAXB1U0FCL0MTYOP3R55TTVH2EDDQ1VV4Q"
     let v = "20181128"
     let query = "coffee"
-    let limit = 10
+    let limit = 15
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -75,6 +75,28 @@ class CoffeeShopsNearMeTests: XCTestCase {
         } catch {
             
         }
+    }
+    
+    func testAddressToLatlonString() {
+        let model = CoffeeShopViewModel.init()
+        let address = "410 Townsend St, San Francisco, CA"
+
+        let expectation = XCTestExpectation(description: "Convert address to latlon string.")
+        model.convertAddressToLatLon(address: address) { (latlon) in
+            guard let latlon = latlon else {
+                XCTAssertTrue(false, "did not get latlon string.")
+                return
+            }
+            let arr = latlon.split(separator: ",")
+            print(latlon)
+            let lat =  arr[0]
+            let lon = arr[1]
+            XCTAssertTrue(!lat.isEmpty, "was able to get lat string from address")
+            XCTAssertTrue(!lon.isEmpty, "was able to get lon string from address")
+            expectation.fulfill()
+        }
+        // Wait until the expectation is fulfilled, with a timeout of 5 seconds.
+        wait(for: [expectation], timeout: 5.0)
     }
     
     func testExample() {
