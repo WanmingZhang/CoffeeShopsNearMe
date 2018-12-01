@@ -27,6 +27,8 @@
 		F718FC5221AFD438007ACC63 /* CoffeeShopListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */; };
 		F718FC5521AFD52C007ACC63 /* CoffeeShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */; };
 		F7BE146A21B1243300EC53EE /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE146921B1243300EC53EE /* CoffeeShop.swift */; };
+		F7DFA98E21B27B1A0061B851 /* CoffeeShopListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFA98C21B27B1A0061B851 /* CoffeeShopListViewCell.swift */; };
+		F7DFA98F21B27B1A0061B851 /* CoffeeShopListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7DFA98D21B27B1A0061B851 /* CoffeeShopListViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoffeeShopListViewController.xib; sourceTree = "<group>"; };
 		F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopViewModel.swift; sourceTree = "<group>"; };
 		F7BE146921B1243300EC53EE /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
+		F7DFA98C21B27B1A0061B851 /* CoffeeShopListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopListViewCell.swift; sourceTree = "<group>"; };
+		F7DFA98D21B27B1A0061B851 /* CoffeeShopListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoffeeShopListViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,8 @@
 				F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */,
 				F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */,
 				F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */,
+				F7DFA98C21B27B1A0061B851 /* CoffeeShopListViewCell.swift */,
+				F7DFA98D21B27B1A0061B851 /* CoffeeShopListViewCell.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7DFA98F21B27B1A0061B851 /* CoffeeShopListViewCell.xib in Resources */,
 				F718FC5221AFD438007ACC63 /* CoffeeShopListViewController.xib in Resources */,
 				F718FC1B21AFC454007ACC63 /* LaunchScreen.storyboard in Resources */,
 				F718FC1821AFC454007ACC63 /* Assets.xcassets in Resources */,
@@ -296,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7DFA98E21B27B1A0061B851 /* CoffeeShopListViewCell.swift in Sources */,
 				F718FC4A21AFCEEC007ACC63 /* ServiceManager.swift in Sources */,
 				F718FC4221AFCC20007ACC63 /* NetworkLogger.swift in Sources */,
 				F718FC3A21AFCAF1007ACC63 /* HTTPTask.swift in Sources */,

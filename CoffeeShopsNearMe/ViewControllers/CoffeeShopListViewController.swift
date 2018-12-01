@@ -8,15 +8,23 @@
 
 import UIKit
 
-class CoffeeShopListViewController: UIViewController {
+class CoffeeShopListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let envoyAddress = "410 Townsend St, San Francisco, CA"
+    
+    let kCoffeeShopListCellIdentifier = "CoffeeShopListViewCell"
+    
+    @IBOutlet weak var totalCountLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     let viewModel = CoffeeShopViewModel()
     var retryCounter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let nib = UINib(nibName: kCoffeeShopListCellIdentifier, bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: kCoffeeShopListCellIdentifier)
+        self.tableView.rowHeight = 120
         // Do any additional setup after loading the view.
         self.viewModel.delegate = self
         
@@ -27,6 +35,22 @@ class CoffeeShopListViewController: UIViewController {
         self.viewModel.convertAddressToLatLon(address: envoyAddress) { (latlon) in
             self.viewModel.fetchCoffeeShops(near: latlon ?? "37.7752996,-122.398058") 
         }
+    }
+    
+    // MARK: UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.responseGroup?.items.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: kCoffeeShopListCellIdentifier, for: indexPath) as! CoffeeShopListViewCell
+        
+
+        return cell
     }
  
 }
@@ -49,7 +73,22 @@ extension CoffeeShopListViewController: FetchCoffeeShopsCompletedProtocol {
     }
     
     func onFetchCompleted(with coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup] ) {
-        self.updateCoffeeShopsCount()
+        
+        self.tableView.reloadData()
+        for coffeeShop in coffeeShops {
+            
+            for item in coffeeShop.items {
+                let name = item.venue.name
+                print(name)
+                let addressArr = item.venue.location.formattedAddress
+
+                
+                
+                
+                
+            }
+            
+        }
         
         //tableView.reloadData()
 

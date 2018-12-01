@@ -15,14 +15,15 @@ protocol FetchCoffeeShopsCompletedProtocol: class {
 }
 
 class CoffeeShopViewModel: NSObject {
-    
-    //var products = [Product]()
+
     weak var delegate: FetchCoffeeShopsCompletedProtocol?
     
     let serviceManager = NetworkManager.sharedManager
     let imageCache = ImageCache.sharedCache
     var isFetchInProgress = false
 
+    var responseGroup: FindCoffeeShopApiResponse.CoffeeShopGroup?
+    
     func fetchCoffeeShops(near address: String) {
         guard !isFetchInProgress else {
             return
@@ -56,37 +57,14 @@ class CoffeeShopViewModel: NSObject {
                 }
                 
                 DispatchQueue.main.async {
+                    guard response.groups.count > 0 else {
+                        strongSelf.delegate?.onFetchFailed(with: error ?? "Not able to find coffee shops nearby")
+                        return
+                    }
+                    strongSelf.responseGroup = response.groups[0]
                     strongSelf.delegate?.onFetchCompleted(with: response.groups)
                 }
             })
-            
-//                        strongSelf.serviceManager.getProducts(pageNumber: strongSelf.currentPage, pageSize: strongSelf.numberOfProductsPerPage) { (count, products, errorDesc) in
-//                            if (errorDesc != nil) {
-//                                DispatchQueue.main.async {
-//                                    strongSelf.isFetchInProgress = false
-//                                    print(errorDesc!)
-//                                    strongSelf.delegate?.onFetchFailed(with: errorDesc!)
-//                                    return
-//                                }
-//                            }
-//                            if let productsFromResponse = products {
-//                                DispatchQueue.main.async {
-//                                    strongSelf.isFetchInProgress = false
-//                                    if (count > 0) {
-//                                        strongSelf.totalProductCount = count
-//                                    }
-//                                    strongSelf.products.append(contentsOf: productsFromResponse)
-//                                    strongSelf.currentCount = strongSelf.products.count
-//                                    if strongSelf.currentPage > 1 {
-//                                        let indexPathsToReload = strongSelf.calculateIndexPathsToReload(from: productsFromResponse)
-//                                        strongSelf.delegate?.onFetchCompleted(with: indexPathsToReload)
-//                                    } else {
-//                                        strongSelf.delegate?.onFetchCompleted(with: nil)
-//                                    }
-//                                    strongSelf.currentPage += 1
-//                                }
-//                            }
-//                        }
         }
     }
 
