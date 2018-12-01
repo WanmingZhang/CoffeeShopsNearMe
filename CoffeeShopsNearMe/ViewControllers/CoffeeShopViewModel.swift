@@ -11,7 +11,7 @@ import CoreLocation
 
 protocol FetchCoffeeShopsCompletedProtocol: class {
     func onFetchFailed(with error: String)
-    func onFetchCompleted(with indexPath: [IndexPath]?)
+    func onFetchCompleted(with coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup])
 }
 
 class CoffeeShopViewModel: NSObject {
@@ -39,37 +39,54 @@ class CoffeeShopViewModel: NSObject {
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf.serviceManager.getCoffeeShops(client_id: clientId, client_secret: clientSecret, v: v, ll: latlon, query: query, limit: limit, completion: { (error) in
-                //
+            strongSelf.serviceManager.getCoffeeShops(client_id: clientId, client_secret: clientSecret, v: v, ll: latlon, query: query, limit: limit, completion: { (coffeeShopResponse, error) in
+                guard error == nil else {
+                    DispatchQueue.main.async {
+                        strongSelf.delegate?.onFetchFailed(with: error!)
+                    }
+                    strongSelf.isFetchInProgress = false
+                    return
+                }
+                guard let response = coffeeShopResponse else {
+                    DispatchQueue.main.async {
+                        strongSelf.delegate?.onFetchFailed(with: "Not able to find coffee shops nearby")
+                    }
+                    strongSelf.isFetchInProgress = false
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.onFetchCompleted(with: response.groups)
+                }
             })
             
-            //            strongSelf.serviceManager.getProducts(pageNumber: strongSelf.currentPage, pageSize: strongSelf.numberOfProductsPerPage) { (count, products, errorDesc) in
-            //                if (errorDesc != nil) {
-            //                    DispatchQueue.main.async {
-            //                        strongSelf.isFetchInProgress = false
-            //                        print(errorDesc!)
-            //                        strongSelf.delegate?.onFetchFailed(with: errorDesc!)
-            //                        return
-            //                    }
-            //                }
-            //                if let productsFromResponse = products {
-            //                    DispatchQueue.main.async {
-            //                        strongSelf.isFetchInProgress = false
-            //                        if (count > 0) {
-            //                            strongSelf.totalProductCount = count
-            //                        }
-            //                        strongSelf.products.append(contentsOf: productsFromResponse)
-            //                        strongSelf.currentCount = strongSelf.products.count
-            //                        if strongSelf.currentPage > 1 {
-            //                            let indexPathsToReload = strongSelf.calculateIndexPathsToReload(from: productsFromResponse)
-            //                            strongSelf.delegate?.onFetchCompleted(with: indexPathsToReload)
-            //                        } else {
-            //                            strongSelf.delegate?.onFetchCompleted(with: nil)
-            //                        }
-            //                        strongSelf.currentPage += 1
-            //                    }
-            //                }
-            //            }
+//                        strongSelf.serviceManager.getProducts(pageNumber: strongSelf.currentPage, pageSize: strongSelf.numberOfProductsPerPage) { (count, products, errorDesc) in
+//                            if (errorDesc != nil) {
+//                                DispatchQueue.main.async {
+//                                    strongSelf.isFetchInProgress = false
+//                                    print(errorDesc!)
+//                                    strongSelf.delegate?.onFetchFailed(with: errorDesc!)
+//                                    return
+//                                }
+//                            }
+//                            if let productsFromResponse = products {
+//                                DispatchQueue.main.async {
+//                                    strongSelf.isFetchInProgress = false
+//                                    if (count > 0) {
+//                                        strongSelf.totalProductCount = count
+//                                    }
+//                                    strongSelf.products.append(contentsOf: productsFromResponse)
+//                                    strongSelf.currentCount = strongSelf.products.count
+//                                    if strongSelf.currentPage > 1 {
+//                                        let indexPathsToReload = strongSelf.calculateIndexPathsToReload(from: productsFromResponse)
+//                                        strongSelf.delegate?.onFetchCompleted(with: indexPathsToReload)
+//                                    } else {
+//                                        strongSelf.delegate?.onFetchCompleted(with: nil)
+//                                    }
+//                                    strongSelf.currentPage += 1
+//                                }
+//                            }
+//                        }
         }
     }
 

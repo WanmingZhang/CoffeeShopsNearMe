@@ -38,11 +38,11 @@ struct NetworkManager {
                         ll: String,
                         query: String,
                         limit: Int,
-                        completion: @escaping  ( _ error: String?) -> ()) {
+                        completion: @escaping  ( _ coffeeShopResponse: FindCoffeeShopApiResponse?, _ error: String?) -> ()) {
         
         fourSquareRouter.request(.exploreCoffeeShops(client_id: client_id, client_secret: client_secret, v: v, ll: ll, query: query, limit: limit)) { (data, response, error) in
             if (error != nil) {
-                completion(error?.localizedDescription)
+                completion(nil, error?.localizedDescription)
             }
             
             if let response = response as? HTTPURLResponse {
@@ -50,25 +50,30 @@ struct NetworkManager {
                 switch result {
                 case .success:
                     guard let responseData = data else {
-                        completion(NetworkResponse.noData.rawValue)
+                        completion(nil, NetworkResponse.noData.rawValue)
                         return
                     }
                     do {
                         print(responseData)
                         guard let jsonData = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers) as? [String:Any] else {
-                            completion(NetworkResponse.unableToDecode.rawValue)
+                            completion(nil, NetworkResponse.unableToDecode.rawValue)
                             return
                         }
                         print(jsonData)
-                        
-                        completion(nil)
+                        do {
+                            let apiResponse = try JSONDecoder().decode(SearchForVenuesApiResponse.self, from: responseData)
+                            completion(apiResponse.response, nil)
+                        } catch let error {
+                            print(error)
+                            completion(nil, NetworkResponse.unableToDecode.rawValue)
+                        }
                     }
                     catch {
                         print(error)
-                        completion(NetworkResponse.unableToDecode.rawValue)
+                        completion(nil, NetworkResponse.unableToDecode.rawValue)
                     }
                 case .failure(let networkFailureError):
-                    completion(networkFailureError)
+                    completion(nil, networkFailureError)
                 }
             }
         }

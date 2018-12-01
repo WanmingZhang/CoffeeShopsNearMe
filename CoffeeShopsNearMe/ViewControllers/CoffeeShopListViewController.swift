@@ -33,7 +33,7 @@ class CoffeeShopListViewController: UIViewController {
 
 // MARK: FetchCoffeeShopsCompletedProtocol
 extension CoffeeShopListViewController: FetchCoffeeShopsCompletedProtocol {
-    
+
     // if request fails, automatically retry for 3 times
     // notify user after 3 retries.
     func onFetchFailed(with error: String) {
@@ -48,7 +48,7 @@ extension CoffeeShopListViewController: FetchCoffeeShopsCompletedProtocol {
         return
     }
     
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+    func onFetchCompleted(with coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup] ) {
         self.updateCoffeeShopsCount()
         
         //tableView.reloadData()

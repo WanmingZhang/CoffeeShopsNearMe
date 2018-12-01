@@ -26,6 +26,7 @@
 		F718FC5121AFD438007ACC63 /* CoffeeShopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */; };
 		F718FC5221AFD438007ACC63 /* CoffeeShopListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */; };
 		F718FC5521AFD52C007ACC63 /* CoffeeShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */; };
+		F7BE146A21B1243300EC53EE /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE146921B1243300EC53EE /* CoffeeShop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		F718FC4F21AFD438007ACC63 /* CoffeeShopListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopListViewController.swift; sourceTree = "<group>"; };
 		F718FC5021AFD438007ACC63 /* CoffeeShopListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoffeeShopListViewController.xib; sourceTree = "<group>"; };
 		F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopViewModel.swift; sourceTree = "<group>"; };
+		F7BE146921B1243300EC53EE /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				F718FC4B21AFCFE2007ACC63 /* ServiceManager */,
 				F718FC4E21AFD096007ACC63 /* Cache */,
 				F718FC5321AFD449007ACC63 /* ViewControllers */,
+				F7BE146B21B12EDF00EC53EE /* Models */,
 			);
 			path = CoffeeShopsNearMe;
 			sourceTree = "<group>";
@@ -181,6 +184,14 @@
 				F718FC5421AFD52C007ACC63 /* CoffeeShopViewModel.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F7BE146B21B12EDF00EC53EE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F7BE146921B1243300EC53EE /* CoffeeShop.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +302,7 @@
 				F718FC3521AFC736007ACC63 /* JSONParameterEncoder.swift in Sources */,
 				F718FC5121AFD438007ACC63 /* CoffeeShopListViewController.swift in Sources */,
 				F718FC4421AFCC9F007ACC63 /* RequestEndPoints .swift in Sources */,
+				F7BE146A21B1243300EC53EE /* CoffeeShop.swift in Sources */,
 				F718FC3121AFC650007ACC63 /* ParameterEncoding.swift in Sources */,
 				F718FC3321AFC6FA007ACC63 /* URLParameterEncoding.swift in Sources */,
 				F718FC5521AFD52C007ACC63 /* CoffeeShopViewModel.swift in Sources */,
