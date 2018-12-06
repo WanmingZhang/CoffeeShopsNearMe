@@ -43,12 +43,17 @@ class CoffeeShopListViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.responseGroup?.items.count ?? 0
+        return self.viewModel.coffeeShops?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: kCoffeeShopListCellIdentifier, for: indexPath) as! CoffeeShopListViewCell
-        
+        let index = indexPath.row
+        guard let coffeeShops = self.viewModel.coffeeShops else {
+            return cell
+        }
+        let coffeeShopItem = coffeeShops[index]
+       cell.updateCell(with: coffeeShopItem.venue)
 
         return cell
     }
@@ -72,26 +77,8 @@ extension CoffeeShopListViewController: FetchCoffeeShopsCompletedProtocol {
         return
     }
     
-    func onFetchCompleted(with coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup] ) {
-        
+    func onFetchCompleted() {
         self.tableView.reloadData()
-        for coffeeShop in coffeeShops {
-            
-            for item in coffeeShop.items {
-                let name = item.venue.name
-                print(name)
-                let addressArr = item.venue.location.formattedAddress
-
-                
-                
-                
-                
-            }
-            
-        }
-        
-        //tableView.reloadData()
-
     }
     
     func updateCoffeeShopsCount() {

@@ -11,7 +11,7 @@ import CoreLocation
 
 protocol FetchCoffeeShopsCompletedProtocol: class {
     func onFetchFailed(with error: String)
-    func onFetchCompleted(with coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup])
+    func onFetchCompleted()
 }
 
 class CoffeeShopViewModel: NSObject {
@@ -21,8 +21,7 @@ class CoffeeShopViewModel: NSObject {
     let serviceManager = NetworkManager.sharedManager
     let imageCache = ImageCache.sharedCache
     var isFetchInProgress = false
-
-    var responseGroup: FindCoffeeShopApiResponse.CoffeeShopGroup?
+    var coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem]?
     
     func fetchCoffeeShops(near address: String) {
         guard !isFetchInProgress else {
@@ -61,8 +60,9 @@ class CoffeeShopViewModel: NSObject {
                         strongSelf.delegate?.onFetchFailed(with: error ?? "Not able to find coffee shops nearby")
                         return
                     }
-                    strongSelf.responseGroup = response.groups[0]
-                    strongSelf.delegate?.onFetchCompleted(with: response.groups)
+                    let coffeeShopGroup = response.groups[0]
+                    strongSelf.coffeeShops = coffeeShopGroup.items
+                    strongSelf.delegate?.onFetchCompleted()
                 }
             })
         }
