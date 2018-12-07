@@ -95,7 +95,7 @@ class CoffeeShopViewModel: NSObject {
     
     func retrieveProductImage(coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop, completion: @escaping (_ image: UIImage?, _ error: String?) -> ()) {
         
-        let group = "checkin"
+        let group = "venue"
         let limit = 100
         let offset = 100
         
