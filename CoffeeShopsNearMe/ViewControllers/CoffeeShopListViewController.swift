@@ -72,7 +72,7 @@ extension CoffeeShopListViewController: FetchCoffeeShopsCompletedProtocol {
             retryCounter += 1
         } else {
             // notify user
-            self.showAlert(with: "Not able to retrieve product list at the moment.", message: error)
+            self.showAlert(with: "Not able to retrieve coffee shops at the moment.", message: error)
         }
         return
     }

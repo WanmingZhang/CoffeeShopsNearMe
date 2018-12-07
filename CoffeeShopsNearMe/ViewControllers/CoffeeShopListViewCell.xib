@@ -81,9 +81,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="qyg-gQ-HcG" id="OPl-Rn-pir"/>
                 <outlet property="address1" destination="9hK-0C-3lS" id="RPZ-0y-etw"/>
                 <outlet property="address2" destination="6f7-CO-2n0" id="SPB-Ln-m1Z"/>
                 <outlet property="address3" destination="yrx-Gj-ml7" id="akm-xr-UVM"/>
+                <outlet property="coffeeShopImageView" destination="afV-qw-HJo" id="RTU-BW-WrR"/>
                 <outlet property="nameLabel" destination="YrO-4u-kGn" id="LVC-Vk-6aC"/>
             </connections>
             <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>

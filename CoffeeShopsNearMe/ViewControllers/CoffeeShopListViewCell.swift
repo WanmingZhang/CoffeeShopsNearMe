@@ -12,6 +12,8 @@ import AlamofireImage
 
 class CoffeeShopListViewCell: UITableViewCell {
 
+    @IBOutlet weak var coffeeShopImageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var address1: UILabel!
     @IBOutlet weak var address2: UILabel!
@@ -31,6 +33,7 @@ class CoffeeShopListViewCell: UITableViewCell {
     
     func updateCell(with coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop?) {
         if let coffeeShop = coffeeShop {
+
             nameLabel.text = coffeeShop.name
             guard coffeeShop.location.formattedAddress.count >= 3 else {
                 return
@@ -39,6 +42,47 @@ class CoffeeShopListViewCell: UITableViewCell {
             address1.text = addresses[0]
             address2.text = addresses[1]
             address3.text = addresses[2]
+            
+            guard coffeeShop.categories.count > 0 else {
+                return
+            }
+            let category = coffeeShop.categories[0]
+            let width = 100
+            let height = 100
+            
+            
+            let viewModel = CoffeeShopViewModel.init()
+            
+            viewModel.retrieveProductImage(coffeeShop: coffeeShop) { (image, error) in
+                //
+            }
+            let imageStr = category.icon.prefix + "\(width)" + "x" + "\(height)" + category.icon.suffix
+            
+            guard let url = URL(string: imageStr) else {
+                return
+            }
+            
+            activityIndicator.startAnimating()
+            let filter = AspectScaledToFillSizeFilter(size: CGSize(width: width, height: height))
+            coffeeShopImageView.af_setImage(withURL: url,
+                                            placeholderImage: nil,
+                                            filter: filter,
+                                            progress: nil,
+                                            progressQueue: DispatchQueue.main,
+                                            imageTransition: .noTransition,
+                                            runImageTransitionIfCached: false) { (dataResponse : DataResponse<UIImage>) in
+                                                switch dataResponse.result {
+                                                case .success( _):
+                                                    print("success")
+                                                    self.activityIndicator.stopAnimating()
+                                                case .failure(let imageError):
+                                                    print("\(imageError)")
+                                                }
+            }
+                
+            
+            print(imageStr)
+            
         }
     }
 }

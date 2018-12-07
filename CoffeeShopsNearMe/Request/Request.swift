@@ -17,13 +17,13 @@ enum NetworkEnvironment {
 public enum FourSquareApi {
     
     case exploreCoffeeShops(client_id:String, client_secret:String, v:String,  ll:String, query:String,limit:Int)
-    //case productImage(imageURL:String)
+    case coffeeShopImage(client_id:String, client_secret:String, v:String, VENUE_ID:String, group:String, limit:Int, offset:Int)
 }
 
 extension FourSquareApi: RequestEndPoints {
     
     var baseURLString : String {
-        return "https://api.foursquare.com"
+        return "https://api.foursquare.com/v2"
     }
     
     var baseURL: URL {
@@ -34,8 +34,11 @@ extension FourSquareApi: RequestEndPoints {
     var path: String {
         switch self {
         case .exploreCoffeeShops(_, _, _, _, _, _):
-            return "v2/venues/explore"
+            return "venues/explore"
+        case .coffeeShopImage(client_id: _, client_secret: _, v: _, VENUE_ID: let venue_Id, group: _, limit: _, offset: _):
             
+            return "venues/" + venue_Id + "/photos"
+            //https://api.foursquare.com/v2/venues/43695300f964a5208c291fe3/photos?
         }
     }
     
@@ -53,6 +56,13 @@ extension FourSquareApi: RequestEndPoints {
                                                                                                        "query":query,
                                                                                                        "limit":limit])
             
+        case .coffeeShopImage(client_id: let clientID, client_secret: let secret, v:let date, VENUE_ID: _, group: let group, limit: let limit, offset: let offset):
+            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["client_id":clientID,
+                                                                                                       "client_secret":secret,
+                                                                                                       "v":date,
+                                                                                                       "group":group,
+                                                                                                       "limit":limit,
+                                                                                                       "offset":offset])
         }
     }
     

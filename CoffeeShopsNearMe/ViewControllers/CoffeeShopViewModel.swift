@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreLocation
 
 protocol FetchCoffeeShopsCompletedProtocol: class {
@@ -23,6 +24,10 @@ class CoffeeShopViewModel: NSObject {
     var isFetchInProgress = false
     var coffeeShops: [FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem]?
     
+    let clientId = "W1LHFKVVGDKXS12Y3MEFM52SBKJQTKIRFKAB51ZCDJQKCBOV"
+    let clientSecret = "LZAS1ZGSIIF4E4QAXB1U0FCL0MTYOP3R55TTVH2EDDQ1VV4Q"
+    let v = "20181206"
+    
     func fetchCoffeeShops(near address: String) {
         guard !isFetchInProgress else {
             return
@@ -30,16 +35,13 @@ class CoffeeShopViewModel: NSObject {
         isFetchInProgress = true
         
         let latlon = address
-        let clientId = "W1LHFKVVGDKXS12Y3MEFM52SBKJQTKIRFKAB51ZCDJQKCBOV"
-        let clientSecret = "LZAS1ZGSIIF4E4QAXB1U0FCL0MTYOP3R55TTVH2EDDQ1VV4Q"
-        let v = "20181128"
         let query = "coffee"
         let limit = 15
         
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf.serviceManager.getCoffeeShops(client_id: clientId, client_secret: clientSecret, v: v, ll: latlon, query: query, limit: limit, completion: { (coffeeShopResponse, error) in
+            strongSelf.serviceManager.getCoffeeShops(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, ll: latlon, query: query, limit: limit, completion: { (coffeeShopResponse, error) in
                 guard error == nil else {
                     DispatchQueue.main.async {
                         strongSelf.delegate?.onFetchFailed(with: error!)
@@ -89,7 +91,40 @@ class CoffeeShopViewModel: NSObject {
         
     }
         
-    // MARK: fetch product image
+     //MARK: fetch product image
+    
+    func retrieveProductImage(coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop, completion: @escaping (_ image: UIImage?, _ error: String?) -> ()) {
+        
+        let group = "checkin"
+        let limit = 100
+        let offset = 100
+        
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.serviceManager.getCoffeeShopPhotos(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (error) in
+                print(error?.description)
+            }
+        }
+    }
+
+        
+//        serviceManager.getProductImage(imageURL: product.productImageURL) { (responseData, errorDesc) in
+//
+//            guard let data = responseData else {
+//                print(errorDesc ?? "")
+//                completion(nil, errorDesc)
+//                return
+//            }
+//
+//            if let image = UIImage(data: data) {
+//                self.imageCache[product.productId] = data
+//                completion(image, nil)
+//            } else {
+//                completion(nil, NetworkResponse.unableToDecode.rawValue)
+//            }
+//        }
+    
+    
 //    func getImage(forProduct product: Product, onCompleted: ((String?, UIImage?) -> ())?) {
 //        let imageCache = WPCache.sharedCache
 //
