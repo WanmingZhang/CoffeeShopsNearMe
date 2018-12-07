@@ -93,7 +93,7 @@ class CoffeeShopViewModel: NSObject {
         
      //MARK: fetch product image
     
-    func retrieveProductImage(coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop, completion: @escaping (_ image: UIImage?, _ error: String?) -> ()) {
+    func retrieveProductImage(coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop, completion: @escaping (_ imageUrl: String?, _ error: String?) -> ()) {
         
         let group = "venue"
         let limit = 100
@@ -101,8 +101,20 @@ class CoffeeShopViewModel: NSObject {
         
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.serviceManager.getCoffeeShopPhotos(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (error) in
-                print(error?.description)
+            strongSelf.serviceManager.getCoffeeShopPhotos(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (photoResponse, error) in
+                
+                guard let response = photoResponse else {
+                    print(error?.description)
+                    return
+                }
+                
+                guard response.photos.items.count > 0 else {
+                    print(error?.description ?? "Not able to retrieve any photos")
+                    return
+                }
+                let photo = response.photos.items[0]
+                let photoUrl = photo.prefix + photo.suffix
+                completion(photoUrl, nil)
             }
         }
     }

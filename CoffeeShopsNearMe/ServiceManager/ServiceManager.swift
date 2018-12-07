@@ -86,11 +86,11 @@ struct NetworkManager {
                              group: String,
                              limit: Int,
                              offset: Int,
-                             completion: @escaping (_ error: String?) -> ()) {
+                             completion: @escaping (_ photoResponse: CoffeeShopPhotoApiResponse?, _ error: String?) -> ()) {
         
         fourSquareRouter.request(.coffeeShopImage(client_id: client_id, client_secret: client_secret, v: v, VENUE_ID: VENUE_ID, group: group, limit: limit, offset: offset)) { (data, response, error) in
             if (error != nil) {
-                completion(error?.localizedDescription)
+                completion(nil, error?.localizedDescription)
             }
             
             if let response = response as? HTTPURLResponse {
@@ -98,39 +98,36 @@ struct NetworkManager {
                 switch result {
                 case .success:
                     guard let responseData = data else {
-                        completion(NetworkResponse.noData.rawValue)
+                        completion(nil, NetworkResponse.noData.rawValue)
                         return
                     }
                     do {
                         print(responseData)
                         guard let jsonData = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers) as? [String:Any] else {
-                            completion(NetworkResponse.unableToDecode.rawValue)
+                            completion(nil, NetworkResponse.unableToDecode.rawValue)
                             return
                         }
                         print(jsonData)
-                        //                        do {
-                        //                            let apiResponse = try JSONDecoder().decode(SearchForVenuesApiResponse.self, from: responseData)
-                        //                            completion(apiResponse.response, nil)
-                        //                        } catch let error {
-                        //                            print(error)
-                        //                            completion(nil, NetworkResponse.unableToDecode.rawValue)
-                        //                        }
+                        do {
+                            let apiResponse = try JSONDecoder().decode(GetVenuePhotosApiResponse.self, from: responseData)
+                            print(apiResponse.response)
+                            completion(apiResponse.response, nil)
+                        } catch let error {
+                            print(error)
+                            completion(nil, NetworkResponse.unableToDecode.rawValue)
+                        }
                 }
                 catch {
                     print(error)
-                    completion(NetworkResponse.unableToDecode.rawValue)
+                    completion(nil, NetworkResponse.unableToDecode.rawValue)
                 }
                 case .failure(let networkFailureError):
-                completion(networkFailureError)
+                completion(nil, networkFailureError)
                 }
             }
         }
-
     }
 
-
-    
-    
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String>{
         switch response.statusCode {
         case 200...299: return .success
@@ -140,9 +137,6 @@ struct NetworkManager {
         default: return .failure(NetworkResponse.failed.rawValue)
         }
     }
-    
-
-
 
 }
 

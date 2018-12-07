@@ -31,6 +31,7 @@
 		F7BE146A21B1243300EC53EE /* CoffeeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE146921B1243300EC53EE /* CoffeeShop.swift */; };
 		F7DFA98E21B27B1A0061B851 /* CoffeeShopListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFA98C21B27B1A0061B851 /* CoffeeShopListViewCell.swift */; };
 		F7DFA98F21B27B1A0061B851 /* CoffeeShopListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F7DFA98D21B27B1A0061B851 /* CoffeeShopListViewCell.xib */; };
+		F7DFA9CC21BAEC7B0061B851 /* CoffeeShopPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DFA9CB21BAEC7B0061B851 /* CoffeeShopPhoto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		F7BE146921B1243300EC53EE /* CoffeeShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShop.swift; sourceTree = "<group>"; };
 		F7DFA98C21B27B1A0061B851 /* CoffeeShopListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopListViewCell.swift; sourceTree = "<group>"; };
 		F7DFA98D21B27B1A0061B851 /* CoffeeShopListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoffeeShopListViewCell.xib; sourceTree = "<group>"; };
+		F7DFA9CB21BAEC7B0061B851 /* CoffeeShopPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeShopPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				F7BE146921B1243300EC53EE /* CoffeeShop.swift */,
+				F7DFA9CB21BAEC7B0061B851 /* CoffeeShopPhoto.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				F718FC4A21AFCEEC007ACC63 /* ServiceManager.swift in Sources */,
 				F718FC4221AFCC20007ACC63 /* NetworkLogger.swift in Sources */,
 				F718FC3A21AFCAF1007ACC63 /* HTTPTask.swift in Sources */,
+				F7DFA9CC21BAEC7B0061B851 /* CoffeeShopPhoto.swift in Sources */,
 				F718FC3521AFC736007ACC63 /* JSONParameterEncoder.swift in Sources */,
 				F718FC5121AFD438007ACC63 /* CoffeeShopListViewController.swift in Sources */,
 				F718FC4421AFCC9F007ACC63 /* RequestEndPoints .swift in Sources */,
@@ -578,7 +582,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LZTEV35AT;
 				INFOPLIST_FILE = CoffeeShopsNearMe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.WanmingZhang.CoffeeShopsNearMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -594,7 +601,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LZTEV35AT;
 				INFOPLIST_FILE = CoffeeShopsNearMe/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.WanmingZhang.CoffeeShopsNearMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -611,7 +621,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LZTEV35AT;
 				INFOPLIST_FILE = CoffeeShopsNearMeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.WanmingZhang.CoffeeShopsNearMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -629,7 +643,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3LZTEV35AT;
 				INFOPLIST_FILE = CoffeeShopsNearMeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.WanmingZhang.CoffeeShopsNearMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

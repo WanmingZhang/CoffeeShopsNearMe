@@ -53,35 +53,43 @@ class CoffeeShopListViewCell: UITableViewCell {
             
             let viewModel = CoffeeShopViewModel.init()
             
-            viewModel.retrieveProductImage(coffeeShop: coffeeShop) { (image, error) in
-                //
-            }
-            let imageStr = category.icon.prefix + "\(width)" + "x" + "\(height)" + category.icon.suffix
-            
-            guard let url = URL(string: imageStr) else {
-                return
-            }
-            
-            activityIndicator.startAnimating()
-            let filter = AspectScaledToFillSizeFilter(size: CGSize(width: width, height: height))
-            coffeeShopImageView.af_setImage(withURL: url,
-                                            placeholderImage: nil,
-                                            filter: filter,
-                                            progress: nil,
-                                            progressQueue: DispatchQueue.main,
-                                            imageTransition: .noTransition,
-                                            runImageTransitionIfCached: false) { (dataResponse : DataResponse<UIImage>) in
-                                                switch dataResponse.result {
-                                                case .success( _):
-                                                    print("success")
-                                                    self.activityIndicator.stopAnimating()
-                                                case .failure(let imageError):
-                                                    print("\(imageError)")
-                                                }
-            }
+            viewModel.retrieveProductImage(coffeeShop: coffeeShop) { (imageStr, error) in
+                guard let imageStr = imageStr else {
+                    return
+                }
+                guard let url = URL(string: imageStr) else {
+                    return
+                }
+                print(imageStr)
+                self.activityIndicator.startAnimating()
+                let filter = AspectScaledToFillSizeFilter(size: CGSize(width: width, height: height))
+                self.coffeeShopImageView.af_setImage(withURL: url,
+                                                placeholderImage: nil,
+                                                filter: filter,
+                                                progress: nil,
+                                                progressQueue: DispatchQueue.main,
+                                                imageTransition: .noTransition,
+                                                runImageTransitionIfCached: false) { (dataResponse : DataResponse<UIImage>) in
+                                                    switch dataResponse.result {
+                                                    case .success( _):
+                                                        print("success")
+                                                        self.activityIndicator.stopAnimating()
+                                                    case .failure(let imageError):
+                                                        print("\(imageError)")
+                                                    }
+                }
                 
+                
+                
+                
+            }
+//            let imageStr = category.icon.prefix + "\(width)" + "x" + "\(height)" + category.icon.suffix
+//
+//            guard let url = URL(string: imageStr) else {
+//                return
+//            }
             
-            print(imageStr)
+
             
         }
     }
