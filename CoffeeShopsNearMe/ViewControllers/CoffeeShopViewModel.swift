@@ -26,7 +26,7 @@ class CoffeeShopViewModel: NSObject {
     
     let clientId = "W1LHFKVVGDKXS12Y3MEFM52SBKJQTKIRFKAB51ZCDJQKCBOV"
     let clientSecret = "LZAS1ZGSIIF4E4QAXB1U0FCL0MTYOP3R55TTVH2EDDQ1VV4Q"
-    let v = "20181206"
+    let v = "20181217"
     
     func fetchCoffeeShops(near address: String) {
         guard !isFetchInProgress else {
@@ -98,13 +98,14 @@ class CoffeeShopViewModel: NSObject {
         let group = "venue"
         let limit = 100
         let offset = 100
-        
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.serviceManager.getCoffeeShopPhotos(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (photoResponse, error) in
+        let width = 100
+        let height = 100
+        DispatchQueue.global(qos: .default).async {
+            //guard let strongSelf = self else { return }
+            self.serviceManager.getCoffeeShopPhotos(client_id: self.clientId, client_secret: self.clientSecret, v: self.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (photoResponse, error) in
                 
                 guard let response = photoResponse else {
-                    print(error?.description)
+                    print(error?.description ?? "not able to retrieve photo response")
                     return
                 }
                 
@@ -113,7 +114,7 @@ class CoffeeShopViewModel: NSObject {
                     return
                 }
                 let photo = response.photos.items[0]
-                let photoUrl = photo.prefix + photo.suffix
+                let photoUrl = photo.prefix + "\(width)" + "x" + "\(height)" + photo.suffix
                 completion(photoUrl, nil)
             }
         }

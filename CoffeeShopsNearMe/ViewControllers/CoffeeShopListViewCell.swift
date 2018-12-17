@@ -21,7 +21,8 @@ class CoffeeShopListViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,6 +31,11 @@ class CoffeeShopListViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.activityIndicator.isHidden = true
+        self.coffeeShopImageView.image = nil
+    }
     
     func updateCell(with coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop?) {
         if let coffeeShop = coffeeShop {
@@ -46,7 +52,6 @@ class CoffeeShopListViewCell: UITableViewCell {
             guard coffeeShop.categories.count > 0 else {
                 return
             }
-            let category = coffeeShop.categories[0]
             let width = 100
             let height = 100
             
@@ -61,7 +66,9 @@ class CoffeeShopListViewCell: UITableViewCell {
                     return
                 }
                 print(imageStr)
-                self.activityIndicator.startAnimating()
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating()
+                }
                 let filter = AspectScaledToFillSizeFilter(size: CGSize(width: width, height: height))
                 self.coffeeShopImageView.af_setImage(withURL: url,
                                                 placeholderImage: nil,
@@ -83,14 +90,6 @@ class CoffeeShopListViewCell: UITableViewCell {
                 
                 
             }
-//            let imageStr = category.icon.prefix + "\(width)" + "x" + "\(height)" + category.icon.suffix
-//
-//            guard let url = URL(string: imageStr) else {
-//                return
-//            }
-            
-
-            
         }
     }
 }
