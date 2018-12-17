@@ -26,7 +26,6 @@ class CoffeeShopViewModel: NSObject {
     
     let clientId = "W1LHFKVVGDKXS12Y3MEFM52SBKJQTKIRFKAB51ZCDJQKCBOV"
     let clientSecret = "LZAS1ZGSIIF4E4QAXB1U0FCL0MTYOP3R55TTVH2EDDQ1VV4Q"
-    let v = "20181217"
     
     func fetchCoffeeShops(near address: String) {
         guard !isFetchInProgress else {
@@ -38,10 +37,11 @@ class CoffeeShopViewModel: NSObject {
         let query = "coffee"
         let limit = 15
         
+        let v = self.todaysDateString()
         DispatchQueue.global(qos: .default).async { [weak self] in
             guard let strongSelf = self else { return }
 
-            strongSelf.serviceManager.getCoffeeShops(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: strongSelf.v, ll: latlon, query: query, limit: limit, completion: { (coffeeShopResponse, error) in
+            strongSelf.serviceManager.getCoffeeShops(client_id: strongSelf.clientId, client_secret: strongSelf.clientSecret, v: v, ll: latlon, query: query, limit: limit, completion: { (coffeeShopResponse, error) in
                 guard error == nil else {
                     DispatchQueue.main.async {
                         strongSelf.delegate?.onFetchFailed(with: error!)
@@ -80,7 +80,6 @@ class CoffeeShopViewModel: NSObject {
                     print("Not a valid address")
                     return
             }
-            //var latLonStr = ""
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             print("Lat: \(lat), Lon: \(lon)")
@@ -88,7 +87,14 @@ class CoffeeShopViewModel: NSObject {
             completion(latlonStr)
             
         }
-        
+    }
+    
+    func todaysDateString() -> String {
+        let todaysDate:Date = Date()
+        let dateFormatter:DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        let dateString = dateFormatter.string(from: todaysDate)
+        return dateString
     }
         
      //MARK: fetch product image
@@ -96,13 +102,15 @@ class CoffeeShopViewModel: NSObject {
     func retrieveProductImage(coffeeShop: FindCoffeeShopApiResponse.CoffeeShopGroup.CoffeeShopItem.CoffeeShop, completion: @escaping (_ imageUrl: String?, _ error: String?) -> ()) {
         
         let group = "venue"
+        let v = self.todaysDateString()
         let limit = 100
         let offset = 100
         let width = 100
         let height = 100
+        
         DispatchQueue.global(qos: .default).async {
             //guard let strongSelf = self else { return }
-            self.serviceManager.getCoffeeShopPhotos(client_id: self.clientId, client_secret: self.clientSecret, v: self.v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (photoResponse, error) in
+            self.serviceManager.getCoffeeShopPhotos(client_id: self.clientId, client_secret: self.clientSecret, v: v, VENUE_ID: coffeeShop.id, group:group , limit: limit, offset: offset) { (photoResponse, error) in
                 
                 guard let response = photoResponse else {
                     print(error?.description ?? "not able to retrieve photo response")
